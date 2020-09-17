@@ -2,10 +2,12 @@
 This is the official Github Repository for 'CSE311: Database Systems Project', Section 1, Group 3, Summer 2020. All Project-related materials and Code submission will be facilitated here.
 
 Group Members:
-Monem Shahriar Sourav       -	1831379042
-Arabindo Das Himu           -	1831592642
-S. M. Sajid Hasan Shanta    -	1831238642
-Sifat Muhammad Tarik Rahman -	1831787042
+
+•	Monem Shahriar Sourav       -	1831379042
+•	Arabindo Das Himu           -	1831592642
+•	S. M. Sajid Hasan Shanta    -	1831238642
+•	Sifat Muhammad Tarik Rahman -	1831787042
+
 
 Project Name: SimplyHire
 
