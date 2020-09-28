@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from .forms import AccountRegisterForm
@@ -27,6 +27,10 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
 
 
 class UserLoginView(LoginView):
+    template_name = 'users/login.html'
+
+
+class UserLogoutView(LogoutView):
     template_name = 'users/login.html'
 
 
