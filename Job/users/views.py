@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from .forms import AccountRegisterForm
@@ -23,3 +24,9 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
         user.save()
 
         return redirect(self.success_url)
+
+
+class UserLoginView(LoginView):
+    template_name = 'users/login.html'
+
+
