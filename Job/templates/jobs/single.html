@@ -39,6 +39,27 @@
              {% endif %}
             </form>
 
+            {% if applied_employees  %}
+            <div class="list-group">
+            <button type="button" class="list-group-item list-group-item-action active" style="text-align:center">
+                Applied Candidates
+            </button>
+
+            {% for employee in applied_employees %}
+            <button type="button" class="list-group-item list-group-item-action">
+              {{ employee.first_name }} {{ employee.last_name}}
+            </button>
+            {% endfor %}
+          </div>
+
+            {% else %}
+           <div class="list-group">
+            <button type="button" class="list-group-item list-group-item-action active" style="text-align:center">
+               No Applied Candidates
+            </button>
+          </div>
+          {% endif %}
+
           </div> <!-- .col-md-8 -->
           <div class="col-md-4 sidebar ftco-animate">
             <div class="sidebar-box">
