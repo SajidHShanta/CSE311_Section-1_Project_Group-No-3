@@ -6,11 +6,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 
-from jobs.models import Category
+from jobs.models import Category, Job
 from .forms import AccountRegisterForm, UserUpdateForm
 
 # Create your views here.
-from django.views.generic import CreateView, UpdateView, DetailView
+from django.views.generic import CreateView, UpdateView, DetailView, ListView
 
 from .models import Profile, Account
 
@@ -73,3 +73,14 @@ class EmployeeProfileView(DetailView):
         context['profile'] = Profile.objects.get(user_id=self.kwargs['pk'])
         context['categories'] = Category.objects.all()
         return context
+
+
+@method_decorator(login_required(login_url='/users/login'), name='dispatch')
+class EmployerPostedJobsView(ListView):
+    template_name = 'users/employer-posted-jobs.html'
+    context_object_name = 'employer_jobs'
+    model = Job
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Job.objects.filter(employer=self.request.user).order_by('-id')

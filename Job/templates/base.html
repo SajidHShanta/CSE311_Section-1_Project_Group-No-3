@@ -69,7 +69,7 @@
                   </button>
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="{% url 'jobs:create_job' %}">Add Job</a>
-                    <a class="dropdown-item" href="#">My Jobs</a>
+                    <a class="dropdown-item" href="{% url 'users:employer_jobs' %}">My Jobs</a>
                       {% if user.get_profile_id %}
                     <a class="dropdown-item" href="{% url 'users:update_profile' pk=user.get_profile_id %}">Update Profile</a>
                       {% endif %}
