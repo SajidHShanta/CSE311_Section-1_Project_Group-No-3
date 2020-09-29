@@ -51,6 +51,7 @@ class SingleJobView(SuccessMessageMixin, UpdateView):
         context['employee_applied'] = Job.objects.get(pk=self.kwargs['pk']).employee.all().filter(id=self.request.user.id)
         try:
             context['applied_employees'] = Job.objects.get(pk=self.kwargs['pk'], employer_id=self.request.user.id).employee.all()
+            context['employer_id'] = Job.objects.get(pk=self.kwargs['pk']).employer_id
         except:
             pass
         return context

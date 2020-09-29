@@ -6,12 +6,13 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 
+from jobs.models import Category
 from .forms import AccountRegisterForm, UserUpdateForm
 
 # Create your views here.
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView
 
-from .models import Profile
+from .models import Profile, Account
 
 
 class UserRegisterView(SuccessMessageMixin, CreateView):
@@ -60,3 +61,15 @@ class UserUpdateView(SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('users:update_profile', kwargs={'pk': self.object.pk})
+
+
+class EmployeeProfileView(DetailView):
+    template_name = 'users/employee-profile.html'
+    model = Account
+
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeProfileView, self).get_context_data(**kwargs)
+        context['account'] = Account.objects.get(pk=self.kwargs['pk'])
+        context['profile'] = Profile.objects.get(user_id=self.kwargs['pk'])
+        context['categories'] = Category.objects.all()
+        return context
