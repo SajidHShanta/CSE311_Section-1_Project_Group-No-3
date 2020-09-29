@@ -1,10 +1,17 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .forms import AccountRegisterForm
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+
+from .forms import AccountRegisterForm, UserUpdateForm
 
 # Create your views here.
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
+
+from .models import Profile
 
 
 class UserRegisterView(SuccessMessageMixin, CreateView):
@@ -34,3 +41,22 @@ class UserLogoutView(LogoutView):
     template_name = 'users/login.html'
 
 
+@method_decorator(login_required(login_url='/users/login'), name='dispatch')
+class UserUpdateView(SuccessMessageMixin, UpdateView):
+    model = Profile
+    success_message = "You updated your profile!"
+    template_name = 'users/update.html'
+    form_class = UserUpdateForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(UserUpdateView, self).form_valid(form)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user != request.user:
+            return HttpResponseRedirect('/')
+        return super(UserUpdateView, self).get(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('users:update_profile', kwargs={'pk': self.object.pk})
