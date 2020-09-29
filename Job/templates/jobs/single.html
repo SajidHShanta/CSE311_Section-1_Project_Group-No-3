@@ -21,7 +21,23 @@
           <div class="col-md-8 ftco-animate">
             <h2 class="mb-3">{{ job.title }}</h2>
             <p>{{ job.description|safe }} </p>
+            <hr>
+            <form method="post">
+              {% csrf_token %}
+            {% if user.is_employee %}
 
+              <div class="ml-auto d-flex">
+                {% if employee_applied %}
+            <input type="submit" value="Apply" class="btn btn-primary py-2 mr-1" disabled title="You Already applied">
+              {% else %}
+             <input type="submit" value="Apply" class="btn btn-primary py-2 mr-1">
+              <a href="#" class="btn btn-danger rounded-circle btn-favorite d-flex align-items-center">
+                <span class="icon-heart"></span>
+              </a>
+                {% endif %}
+                </div>
+             {% endif %}
+            </form>
 
           </div> <!-- .col-md-8 -->
           <div class="col-md-4 sidebar ftco-animate">
