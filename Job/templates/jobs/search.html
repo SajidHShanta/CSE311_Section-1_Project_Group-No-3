@@ -173,8 +173,8 @@
     	<div class="container">
     		<div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading"> Results for {{ category.title }}</span>
-            <h2 class="mb-4"><span>Current</span> Jobs for {{ category.title }}</h2>
+          	<span class="subheading">Categories work waiting for you</span>
+            <h2 class="mb-4"><span>Current</span> Job Posts</h2>
           </div>
         </div>
         <div class="row">
@@ -193,8 +193,8 @@
 			<div class="container">
 				<div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">Recently Added Jobs</span>
-            <h2 class="mb-4"><span>Recent</span> Jobs</h2>
+          	<span class="subheading">Search Results For {{ request.GET.job_title }}</span>
+            <h2 class="mb-4"><span>Search</span>  Results For {{ request.GET.job_title }}</h2>
           </div>
         </div>
 
@@ -243,7 +243,7 @@
             <div class="block-27">
               <ul>
                   {% if page_obj.has_previous %}
-                <li><a href="?page={{ page_obj.previous_page_number }}"><</a></li>
+                <li><a href="?job_title={{request.GET.job_title}}&job_type={{request.GET.job_type}}&job_location={{request.GET.location}}&page={{ page_obj.previous_page_number }}"><</a></li>
                   {% else %}
                 <li class="disabled"><span>&lt;</span></li>
                   {% endif %}
@@ -251,11 +251,11 @@
                   {% if page_obj.number == i %}
                 <li class="active"><span>{{ i }}</span></li>
                   {% else %}
-                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                <li><a href="?job_title={{request.GET.job_title}}&job_type={{request.GET.job_type}}&job_location={{request.GET.location}}&page={{ i }}">{{ i }}</a></li>
                   {% endif %}
                   {% endfor %}
                   {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}">></a></li>
+                <li><a href="?job_title={{request.GET.job_title}}&job_type={{request.GET.job_type}}&job_location={{request.GET.location}}&page={{ page_obj.next_page_number }}">></a></li>
                   {% else %}
                 <li class="disabled"><span> &gt;</span></li>
                   {% endif %}
