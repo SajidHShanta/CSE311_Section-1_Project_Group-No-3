@@ -2,7 +2,8 @@ from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from PIL import Image
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -47,3 +48,23 @@ class Account(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name="profile")
+    image = models.ImageField(upload_to="media/users")
+    birth_day = models.DateTimeField(default=None, blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True)
+    resume = RichTextField(blank=True)
+    company = models.CharField(max_length=250, blank=True)
+
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name + " " + self.user.email
+
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+        img = Image.open(self.image)
+        if img.height > 200 or img.width > 200:
+            new_size = (200, 200)
+            img.thumbnail(new_size)
+            img.save(self.image.path)

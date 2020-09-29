@@ -42,7 +42,7 @@
                   </div>
                   {% endif %}
 
-                  {% for field in form.visible_fields|slice:"5" %}
+                  {% for field in form.visible_fields %}
                 <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="font-weight-bold" for= "fullname">{{ field.label }}</label>
